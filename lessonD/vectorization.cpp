@@ -5,14 +5,16 @@
 #include <iostream>
 using namespace std;
 
+typedef double my_float;
 
 int main(void)
 {
-    int N = 20 * (1 << 25);
-    float* x, * y, * z;
-    x = (float*)malloc(N * sizeof(float));
-    y = (float*)malloc(N * sizeof(float));
-    z = (float*)malloc(N * sizeof(float));
+    int N = 20 * (1 << 24);
+    my_float* x, * y, * z;
+    x = (my_float*)malloc(N * sizeof(my_float));
+    y = (my_float*)malloc(N * sizeof(my_float));
+    z = (my_float*)malloc(N * sizeof(my_float));
+
 
     for (int i = 0; i < N; i++) {
         x[i] = 1.0f;
