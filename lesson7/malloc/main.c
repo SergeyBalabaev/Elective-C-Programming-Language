@@ -1,28 +1,17 @@
 #include <stdio.h>
 #include "malloc_lib.h" 
 
+void test1();
+void test2();
+
 int main()
 {
-	int N_mas = 10;
-	double** A = (double**)malloc(N_mas * sizeof(double*));
-	for (int i = 0; i < N_mas; i++) {
-		A[i] = (double*)malloc(N_mas * sizeof(double));
-	}
-	for (int i = 0; i < N_mas; i++) {
-		free(A[i]);
-	}
-	free(A);
+	test1();
+	test2();
 	return 0;
 }
 
-
-/*
-#include <stdio.h> 
-#include "malloc_lib.h" 
-
-const int N = 50;
-
-int main()
+void test1()
 {
 	int* a = (int*)malloc(10);
 	int* b = (int*)malloc(15);
@@ -34,6 +23,17 @@ int main()
 	free(c);
 	free(d);
 	free(e);
-	return 0;
 }
-*/
+
+void test2()
+{
+	int N_mas = 10;
+	double** A = (double**)malloc(N_mas * sizeof(double*));
+	for (int i = 0; i < N_mas; i++) {
+		A[i] = (double*)malloc(N_mas * sizeof(double));
+	}
+	for (int i = 0; i < N_mas; i++) {
+		free(A[i]);
+	}
+	free(A);
+}
