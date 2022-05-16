@@ -12,9 +12,9 @@
 #endif
 
 
-int has_initialized = 0;	//ôëàã èíèöèàëèçàöèè malloc_init
-void* managed_memory_start; //óêàçàòåëü íà íà÷àëî âûäåëåííîé ïàìÿòè
-void* last_valid_address;	//óêàçàòåëü íà ïîñëåäíèé äîñòóïíûé àäðåñ
+int has_initialized = 0;	//Ñ„Ð»Ð°Ð³ Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ð¸ malloc_init
+void* managed_memory_start; //ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ð° Ð½Ð°Ñ‡Ð°Ð»Ð¾ Ð²Ñ‹Ð´ÐµÐ»ÐµÐ½Ð½Ð¾Ð¹ Ð¿Ð°Ð¼ÑÑ‚Ð¸
+void* last_valid_address;	//ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ð° Ð¿Ð¾ÑÐ»ÐµÐ´Ð½Ð¸Ð¹ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ð¹ Ð°Ð´Ñ€ÐµÑ
 
 struct mem_control_block {
 	int is_available;
@@ -23,9 +23,9 @@ struct mem_control_block {
 
 void malloc_init()
 {
-	last_valid_address = sbrk(0);	// ïîëó÷àåì óêàçàòåëü íà ïîñëåäíèé äîñòóïíûé àäðåñ
-	managed_memory_start = last_valid_address; // ò.ê. ïàìÿòü åùå íå çàïðîøåíà, òî íà÷àëî=êîíåö
-	has_initialized = 1;			//ïðîèíèöèàëèçèðóåì âûïîëíåíèå èíèöèàëèçàöèè malloc_init
+	last_valid_address = sbrk(0);	// Ð¿Ð¾Ð»ÑƒÑ‡Ð°ÐµÐ¼ ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ð° Ð¿Ð¾ÑÐ»ÐµÐ´Ð½Ð¸Ð¹ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ð¹ Ð°Ð´Ñ€ÐµÑ
+	managed_memory_start = last_valid_address; // Ñ‚.Ðº. Ð¿Ð°Ð¼ÑÑ‚ÑŒ ÐµÑ‰Ðµ Ð½Ðµ Ð·Ð°Ð¿Ñ€Ð¾ÑˆÐµÐ½Ð°, Ñ‚Ð¾ Ð½Ð°Ñ‡Ð°Ð»Ð¾=ÐºÐ¾Ð½ÐµÑ†
+	has_initialized = 1;			//Ð¿Ñ€Ð¾Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐµÐ¼ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ð¸ malloc_init
 }
 
 
@@ -35,49 +35,49 @@ void* malloc(long numbytes) {
 	safe_printf("%d) Malloc %ld bytes\n", i, numbytes);
 	i++;
 	*/
-	void* current_location;							//òåêóùåå ðàñïîëîæåíèå óêàçàòåëÿ
-	struct mem_control_block* current_location_mcb; //òåêóùåå ðàñïîëîæåíèå óêàçàòåëÿ, ïðèâåäåííîå ê òèïó struct
-	void* memory_location = NULL;					// âîçâðàùàåìîå çíà÷åíèå
+	void* current_location;							//Ñ‚ÐµÐºÑƒÑ‰ÐµÐµ Ñ€Ð°ÑÐ¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ðµ ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»Ñ
+	struct mem_control_block* current_location_mcb; //Ñ‚ÐµÐºÑƒÑ‰ÐµÐµ Ñ€Ð°ÑÐ¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ðµ ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»Ñ, Ð¿Ñ€Ð¸Ð²ÐµÐ´ÐµÐ½Ð½Ð¾Ðµ Ðº Ñ‚Ð¸Ð¿Ñƒ struct
+	void* memory_location = NULL;					// Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ
 	if (!has_initialized) {
 		malloc_init();
 	}
-	numbytes = numbytes + sizeof(struct mem_control_block); // äîáàâëÿåì ê òðåáóåìîìó ðàçìåðó ïàìÿòè ðàçìåð ñòðóêòóðû
-	current_location = managed_memory_start; // èíèöèàëèçèðóåì òåêóùåå çíà÷åíèå óêàçàòåëÿ íà÷àëüíûì àäðåñîì
+	numbytes = numbytes + sizeof(struct mem_control_block); // Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ Ðº Ñ‚Ñ€ÐµÐ±ÑƒÐµÐ¼Ð¾Ð¼Ñƒ Ñ€Ð°Ð·Ð¼ÐµÑ€Ñƒ Ð¿Ð°Ð¼ÑÑ‚Ð¸ Ñ€Ð°Ð·Ð¼ÐµÑ€ ÑÑ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ñ‹
+	current_location = managed_memory_start; // Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐµÐ¼ Ñ‚ÐµÐºÑƒÑ‰ÐµÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»Ñ Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ñ‹Ð¼ Ð°Ð´Ñ€ÐµÑÐ¾Ð¼
 
-	while (current_location != last_valid_address) //äâèãàåìñÿ ïî ïàìÿòè, ïîêà íå äîñòèãíåì ïîñëåäíåãî äîñòóïíîãî àäðåñà
+	while (current_location != last_valid_address) //Ð´Ð²Ð¸Ð³Ð°ÐµÐ¼ÑÑ Ð¿Ð¾ Ð¿Ð°Ð¼ÑÑ‚Ð¸, Ð¿Ð¾ÐºÐ° Ð½Ðµ Ð´Ð¾ÑÑ‚Ð¸Ð³Ð½ÐµÐ¼ Ð¿Ð¾ÑÐ»ÐµÐ´Ð½ÐµÐ³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ð¾Ð³Ð¾ Ð°Ð´Ñ€ÐµÑÐ°
 	{
-		current_location_mcb =	(struct mem_control_block*)current_location; //çàïèøåì â current_location_mcb çíà÷åíèå òåêóùåãî óêàçàòåëÿ
+		current_location_mcb =	(struct mem_control_block*)current_location; //Ð·Ð°Ð¿Ð¸ÑˆÐµÐ¼ Ð² current_location_mcb Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ³Ð¾ ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»Ñ
 
 		if (current_location_mcb->is_available)
 		{
 			if (current_location_mcb->size >= numbytes)
 			{
-				current_location_mcb->is_available = 0; // ó÷àñòîê íàéäåí. Èçìåíèì ôëàã
-				memory_location = current_location;		// âîçâðàùàåìîå çíà÷åíèå = òåêóùåìó çíà÷åíèþ
+				current_location_mcb->is_available = 0; // ÑƒÑ‡Ð°ÑÑ‚Ð¾Ðº Ð½Ð°Ð¹Ð´ÐµÐ½. Ð˜Ð·Ð¼ÐµÐ½Ð¸Ð¼ Ñ„Ð»Ð°Ð³
+				memory_location = current_location;		// Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ = Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¼Ñƒ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸ÑŽ
 				break;
 			}
 		}
-		current_location = current_location + current_location_mcb->size; //åñëè òåêóùèé ó÷àñòîê çàíÿò, òî ñìåùàåìñÿ íà ðàçìåð çàíÿòîé ïàìÿòè
+		current_location = current_location + current_location_mcb->size; //ÐµÑÐ»Ð¸ Ñ‚ÐµÐºÑƒÑ‰Ð¸Ð¹ ÑƒÑ‡Ð°ÑÑ‚Ð¾Ðº Ð·Ð°Ð½ÑÑ‚, Ñ‚Ð¾ ÑÐ¼ÐµÑ‰Ð°ÐµÐ¼ÑÑ Ð½Ð° Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð·Ð°Ð½ÑÑ‚Ð¾Ð¹ Ð¿Ð°Ð¼ÑÑ‚Ð¸
 	}
 
-	if (!memory_location) //åñëè ïðè ïåðåáîðå âñåõ âûäåëåííûõ ÿ÷ååê, ìû íå ìîæåì óìåñòèòü òðåáóåìûé ó÷àñòîê, òî âûäåëÿåì åùå ïàìÿòè
+	if (!memory_location) //ÐµÑÐ»Ð¸ Ð¿Ñ€Ð¸ Ð¿ÐµÑ€ÐµÐ±Ð¾Ñ€Ðµ Ð²ÑÐµÑ… Ð²Ñ‹Ð´ÐµÐ»ÐµÐ½Ð½Ñ‹Ñ… ÑÑ‡ÐµÐµÐº, Ð¼Ñ‹ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÐ¼ ÑƒÐ¼ÐµÑÑ‚Ð¸Ñ‚ÑŒ Ñ‚Ñ€ÐµÐ±ÑƒÐµÐ¼Ñ‹Ð¹ ÑƒÑ‡Ð°ÑÑ‚Ð¾Ðº, Ñ‚Ð¾ Ð²Ñ‹Ð´ÐµÐ»ÑÐµÐ¼ ÐµÑ‰Ðµ Ð¿Ð°Ð¼ÑÑ‚Ð¸
 	{
-		sbrk(numbytes); //ñäâèãàåì program break íà numbytes
-		memory_location = last_valid_address;		// òðåáóåìûé àäðåñ íàõîäèòñÿ ïî ïîñëåäíåìó äîñòóïíîìó àäðåñó
-		last_valid_address = last_valid_address + numbytes; // ñìåùàåì ïîñëåäíèé äîñòóïíûé àäðåñ
-		current_location_mcb = memory_location;		//èíèöèàëèçèðóåì current_location_mcb
+		sbrk(numbytes); //ÑÐ´Ð²Ð¸Ð³Ð°ÐµÐ¼ program break Ð½Ð° numbytes
+		memory_location = last_valid_address;		// Ñ‚Ñ€ÐµÐ±ÑƒÐµÐ¼Ñ‹Ð¹ Ð°Ð´Ñ€ÐµÑ Ð½Ð°Ñ…Ð¾Ð´Ð¸Ñ‚ÑÑ Ð¿Ð¾ Ð¿Ð¾ÑÐ»ÐµÐ´Ð½ÐµÐ¼Ñƒ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ð¾Ð¼Ñƒ Ð°Ð´Ñ€ÐµÑÑƒ
+		last_valid_address = last_valid_address + numbytes; // ÑÐ¼ÐµÑ‰Ð°ÐµÐ¼ Ð¿Ð¾ÑÐ»ÐµÐ´Ð½Ð¸Ð¹ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ð¹ Ð°Ð´Ñ€ÐµÑ
+		current_location_mcb = memory_location;		//Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐµÐ¼ current_location_mcb
 		current_location_mcb->is_available = 0;
 		current_location_mcb->size = numbytes;
 	}
 	info("Allocated:\t from %p to %p\n", memory_location, memory_location + numbytes);
-	memory_location = memory_location + sizeof(struct mem_control_block); // ïåðåìåùàåì óêàçàòåëü íà âîçâðàùàåìîå çíà÷åíèå ïîñëå ñòðóêòóðû
-	return memory_location; //âîçâðàùàåì óêàçàòåëü
+	memory_location = memory_location + sizeof(struct mem_control_block); // Ð¿ÐµÑ€ÐµÐ¼ÐµÑ‰Ð°ÐµÐ¼ ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ð° Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð¿Ð¾ÑÐ»Ðµ ÑÑ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ñ‹
+	return memory_location; //Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼ ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ
 }
 
 void free(void* firstbyte) {
 	struct mem_control_block* mcb;
-	mcb = firstbyte - sizeof(struct mem_control_block); //ñìåùàåì óêàçàòåëü íà ðàçìåð  mem_control_block
-	mcb->is_available = 1; //îòìå÷àåì áëîê ñâîáîäíûì
+	mcb = firstbyte - sizeof(struct mem_control_block); //ÑÐ¼ÐµÑ‰Ð°ÐµÐ¼ ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ð° Ñ€Ð°Ð·Ð¼ÐµÑ€  mem_control_block
+	mcb->is_available = 1; //Ð¾Ñ‚Ð¼ÐµÑ‡Ð°ÐµÐ¼ Ð±Ð»Ð¾Ðº ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ñ‹Ð¼
 	info("Free:\t\t from %p to %p\n", mcb, firstbyte - sizeof(struct mem_control_block) + mcb->size);
 	return;
 }
