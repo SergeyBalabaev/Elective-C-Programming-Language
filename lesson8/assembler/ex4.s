@@ -5,19 +5,14 @@ printf_format:
 .text
 .global main
 main:
-        movl  $0, %eax          /* в %eax будет результат, поэтому в 
-                                   начале его нужно обнулить         */
-        movl  $10, %ecx         /* 10 шагов цикла                    */
- 
+        movl  $0, %eax          
+        movl  $10, %ecx        
 sum:
-        addl  %ecx, %eax        /* %eax = %eax + %ecx                */
+        addl  %ecx, %eax        
         loop  sum
  
         /* %eax = 55, %ecx = 0 */
  
-/*
- * следующий код выводит число в %eax на экран и завершает программу
- */
         pushl %eax
         pushl $printf_format
         call  printf
