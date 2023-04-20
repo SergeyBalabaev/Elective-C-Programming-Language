@@ -1,11 +1,11 @@
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
+#include <chrono>
 #include <stdio.h>
 #include <stdlib.h>
 
-#define N 1024 * 1024
-#define N_threads 1024
-//(1024*1024)
+#defineN 1024 * 1024 * 128
+#defineN_threads 1024
 
 double fRand(double, double);
 
@@ -72,12 +72,25 @@ int main()
 	cudaMemcpy(dev_a, a, N * sizeof(double), cudaMemcpyHostToDevice);
 	cudaMemcpy(dev_b, b, N * sizeof(double), cudaMemcpyHostToDevice);
 
+	cudaEvent_t start, stop;
+	cudaEventCreate(&start);
+	cudaEventCreate(&stop);
+	cudaEventRecord(start);
 	summ_V_GPU << <N / N_threads, N_threads >> > (dev_a, dev_b, dev_c);
-
+	cudaEventRecord(stop);
 	cudaMemcpy(c_1, dev_c, N * sizeof(double), cudaMemcpyDeviceToHost);
 
+	std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 	summ_V_CPU(a, b, c);
+	std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> duration = (t2 - t1);
 
+	cudaEventSynchronize(stop);
+	float milliseconds = 0;
+	cudaEventElapsedTime(&milliseconds, start, stop);
+
+	printf("CPU time = %lf\n", duration);
+	printf("GPU time = %lf\n", milliseconds / 1000);
 	check_vectors(c, c_1);
 	cudaFree(dev_a);
 	cudaFree(dev_b);
