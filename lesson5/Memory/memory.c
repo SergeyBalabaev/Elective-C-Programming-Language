@@ -4,9 +4,8 @@
 #include <stdint.h>
 #include <inttypes.h>
 
-
-static int8_t bss[4500];                     
-static int8_t data[4500] = {1};           
+static int8_t bss[1];                     
+static int8_t data[5000] = {1};           
 static const int8_t rodata[10] = {"rodata"}; 
 void maps();
 void pmap();
@@ -21,16 +20,16 @@ int main(void)
     printf("rodata       %p \n", &rodata);
     printf("data         %p \n", &data);
     printf("bss at       %p \n", &bss);
-    printf("heap is at   %p \n", malloc(8000000000));
+    printf("heap is at   %p \n", malloc(100000000));
     printf("stack is at  %p \n", (void *)&param); 
     printf("************************************ \n");
     printf("bss at       %"PRIu8"\n", bss[0]);
-    //maps();
+    ///maps();
     pmap();
     //size_short();
     //size_long();
-    int x = 10; 
-    int *x = malloc(50);
+    int x[1000000000000]; 
+    //int *x = malloc(50);
     
     exit(EXIT_SUCCESS);
 }

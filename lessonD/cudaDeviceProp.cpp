@@ -4,8 +4,8 @@
 
 int main()
 {
-    intdeviceCount;
-    cudaDevicePropdevProp;
+    int deviceCount;
+    cudaDeviceProp devProp;
     cudaGetDeviceCount(&deviceCount);
     printf("Found %d devices\n", deviceCount);
 

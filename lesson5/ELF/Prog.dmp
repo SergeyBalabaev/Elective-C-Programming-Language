@@ -3,9 +3,9 @@
                 # 00 <- number of bytes listed so far
 7F 45 4C 46     # 04 e_ident[EI_MAG]: ELF magic number
 01              # 05 e_ident[EI_CLASS]: 1: 32-bit, 2: 64-bit
-   01           # 06 e_ident[EI_DATA]: 1: little-endian, 2: big-endian
-      01        # 07 e_ident[EI_VERSION]: ELF header version; must be 1
-         00     # 08 e_ident[EI_OSABI]: Target OS ABI; should be 0
+01              # 06 e_ident[EI_DATA]: 1: little-endian, 2: big-endian
+01              # 07 e_ident[EI_VERSION]: ELF header version; must be 1
+00              # 08 e_ident[EI_OSABI]: Target OS ABI; should be 0
 
 00              # 09 e_ident[EI_ABIVERSION]: ABI version; 0 is ok for Linux
    00 00 00     # 0C e_ident[EI_PAD]: unused, should be 0
@@ -61,7 +61,7 @@ BA 0C 00 00 00  # 68    edx <- count
 CD 80           # 6A    syscall                 int imm8            CD ib
 
 B8 01 00 00 00  # 6F    eax <- 1 (exit)
-BB 00 00 00 00  # 74    ebx <- 0 (param)
+BB 01 00 00 00  # 74    ebx <- 0 (param)
 CD 80           # 76    syscall
 
 48 45 4C 4C 4F 20  # 7C    "HELLO
