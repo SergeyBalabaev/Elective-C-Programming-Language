@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#defineN 16
+#define N 16
 //(1024*1024)
 
 double fRand(double, double);
